@@ -1,5 +1,6 @@
 import User from "../models/user.model.js";
 import Message from "../models/message.model.js";
+import cloudinary from "../lib/cloudinary.js";
 
 export const getUserForSidebar = async (req, res) => {
     try {
@@ -23,7 +24,7 @@ export const getMessages = async (req, res) => {
 
         const messages = await Message.find({
             $or: [
-                { sender: myId, reciverId: userToChatId },
+                { senderId: myId, reciverId: userToChatId },
                 { senderId: userToChatId, reciverId: myId }
             ]
         })
