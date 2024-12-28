@@ -1,7 +1,7 @@
-import User from "../models/user.model";
-import Message from "../models/message.model";
+import User from "../models/user.model.js";
+import Message from "../models/message.model.js";
 
-export const getUserForSidebar = async (requestAnimationFrame, res) => {
+export const getUserForSidebar = async (req, res) => {
     try {
         const loggedInUser = req.user._id;
         const filteredUsers = await User.find({ _id: { $ne: loggedInUser } });
@@ -67,4 +67,5 @@ export const sendMessage = async (req, res) => {
         res.status(500).json({ message: "Internal Server Error" });
 
     }
+
 }
