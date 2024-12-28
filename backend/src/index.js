@@ -9,13 +9,16 @@ import cros from 'cors';
 dotenv.config();
 const app = express();
 
-app.use(express.json());
+app.use(express.json({ limit: "10mb" }));
 
 app.use(cookieParser());
 
 app.use(cros({
     origin: "http://localhost:5173",
-    credentials: true
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization"],
+    credentials: true,
+
 }));
 
 
