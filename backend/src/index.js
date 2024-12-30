@@ -6,9 +6,9 @@ import { connect_db } from './lib/db.js';
 import cookieParser from 'cookie-parser';
 import cros from 'cors';
 import { app, server } from './lib/socket.js';
+import path from 'path';
 dotenv.config();
 
-import path from 'path';
 const PORT = process.env.PORT || 5000;
 const __dirname = path.resolve();
 
