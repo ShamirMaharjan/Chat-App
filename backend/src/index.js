@@ -8,6 +8,9 @@ import cros from 'cors';
 import { app, server } from './lib/socket.js';
 dotenv.config();
 
+import path from 'path';
+const PORT = process.env.PORT || 5000;
+const __dirname = path.resolve();
 
 app.use(express.json({ limit: "10mb" }));
 
@@ -27,7 +30,13 @@ app.use("/api/auth", authRoutes);
 
 app.use("/api/message", messageRoutes)
 
-const PORT = process.env.PORT || 5000;
+if (process.env.NODE_ENV === "production") {
+    app.use(express.static(path.join(__dirname, "../frontend/dist")));
+    app.get("*", (req, res) => {
+        res.sendFile(path.join(__dirname, "../frontend", "dist", "index.html"));
+    })
+}
+
 server.listen(PORT, () => {
     console.log('Server is running on port 5000');
     connect_db();
